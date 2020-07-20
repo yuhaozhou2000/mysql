@@ -1,11 +1,11 @@
-Query OK, 1 row affected 
+Query OK, 1 row affected
 执行成功  1行数据被影响
 7 rows in set
 7行在集合中
 
-manual手册  /ˈmænjuəl/ 
-corresponds 对应 /ˌkɔːrəˈspɑːnd/ 
-Level | Code | Message 
+manual手册  /ˈmænjuəl/
+corresponds 对应 /ˌkɔːrəˈspɑːnd/
+Level | Code | Message
 级别   编码   信息
 
 
@@ -31,4 +31,3 @@ Unknown table 'imooc.imooc_user'
 
 Data truncated for column 'c' at row 1
 第1行“c”列的数据被截断
-
