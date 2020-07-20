@@ -26,7 +26,7 @@ INSERT test_float1(a,b,c) VALUES(4.143,4.146,4.149);
 --DECIMAL 如果是因为实际表示小于显示标度而产生的截断则截断是按照 小数部分进行四舍五入的
 --而如果是因为在创建表时建表语句中没写DECIMAL的显示精度和标度而产生的截断是按照
 --整数部分的四舍五入即最后只剩下小数 ==> DECIMAL类型在没有指定显示精度和标度时
---默认只保存数值为进行完四舍五入的整数
+--默认只保存数值为进行完四舍五入的整数.
 
 mysql> INSERT test_float1(a,b,c) VALUES(4.143,4.146,4.149);
 Query OK, 1 row affected, 1 warning (0.40 sec)
