@@ -183,4 +183,55 @@ mysql> SELECT CURTIME();
 +-----------+
 1 row in set (0.00 sec)
 
--- 
+# 测试 DATE 类型 YYYY-MM-DD  或者 YYYYMMDD
+CREATE TABLE test_date(
+  a DATE
+);
+
+INSERT test_date(a) VALUES(2017-03-04); # 不能这样写
+INSERT test_date(a) VALUES('2017-03-04');
+mysql> SELECT * FROM test_date;
++------------+
+| a          |
++------------+
+| 2017-03-04 |
++------------+
+1 row in set (0.00 sec)
+
+-- 不写0也是可以的
+INSERT test_date(a) VALUES('2017-3-4');
+
+mysql> SELECT * FROM test_date;
++------------+
+| a          |
++------------+
+| 2017-03-04 |
+| 2017-03-04 |
++------------+
+2 rows in set (0.00 sec)
+
+
+-- 当年份 YYYY, MM, DD 的位数不够时 eg 217-3-4 会先用0补位后再保存
+INSERT test_date(a) VALUES('217-3-4');
+mysql> SELECT * FROM test_date;
++------------+
+| a          |
++------------+
+| 2017-03-04 |
+| 2017-03-04 |
+| 0217-03-04 |
++------------+
+3 rows in set (0.00 sec)
+
+-- 年份,月份,日之间 不带-也是可以的
+INSERT test_date(a) VALUES('40071212');
+
+-- 但是要注意当 年份,月份,日之间 不带-时 要保证 年份,月份,日 的位数
+INSERT test_date(a) VALUES('4071212'); #是不行的
+INSERT test_date(a) VALUES('4007112'); #是不行的
+INSERT test_date(a) VALUES('7');       #是不行的
+
+--mysql 支持一些不严格的语法形式 可以指定其他符号作为年月日的分隔符
+INSERT test_date(a) VALUES('4007@12@12');
+INSERT test_date(a) VALUES('4008#12#12');
+INSERT test_date(a) VALUES('4009.12.12');
