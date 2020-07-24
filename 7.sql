@@ -112,3 +112,75 @@ mysql> SELECT * FROM TEST_TIME;
 INSERT test_time(a) values(787878);
 mysql> INSERT test_time(a) values(787878);
 ERROR 1292 (22007): Incorrect time value: '787878' for column 'a' at row 1
+
+-- 使用系统函数
+-- NOW() 函数转换为当前的系统时间
+INSERT test_time(a) VALUES(NOW());
+mysql> select * from test_time;
++-----------+
+| a         |
++-----------+
+| 12:23:45  |
+| 60:23:45  |
+| 22:22:00  |
+| 00:00:22  |
+| 70:00:00  |
+| 12:12:12  |
+| 838:59:59 |
+| 00:00:00  |
+| 00:00:00  |
+| 00:00:00  |
+| 10:03:16  |
++-----------+
+11 rows in set (0.00 sec)
+
+INSERT test_time(a) VALUES(CURRENT_TIME);
+mysql> SELECT * FROM test_TIME;
++-----------+
+| a         |
++-----------+
+| 12:23:45  |
+| 60:23:45  |
+| 22:22:00  |
+| 00:00:22  |
+| 70:00:00  |
+| 12:12:12  |
+| 838:59:59 |
+| 00:00:00  |
+| 00:00:00  |
+| 00:00:00  |
+| 10:03:16  |
+| 10:05:53  |
++-----------+
+12 rows in set (0.00 sec)
+
+
+-- 系统函数 SELECT NOW(); 得到当前系统的日期时间
+SELECT NOW();
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2020-07-24 10:08:19 |
++---------------------+
+1 row in set (0.00 sec)
+
+-- 得到当前系统时间
+SELECT CURRENT_TIME;
+mysql> SELECT CURRENT_TIME;
++--------------+
+| CURRENT_TIME |
++--------------+
+| 10:09:33     |
++--------------+
+
+SELECT CURTIME();
+mysql> SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 10:12:31  |
++-----------+
+1 row in set (0.00 sec)
+
+-- 
