@@ -389,6 +389,8 @@ mysql> SELECT * FROM TEST_DATETIME;
 -- DATETIME 和 TIMESTAMP 的区别在于他们的起始时间和结束时间不同
 -- TIMESTAMP的日期时间范围要比DATETIME日期时间的范围要小
 
+
+
 -- TIMESTAMP 与 DATATIME 的区别
 CREATE TABLE test_timestamp(
   a TIMESTAMP
@@ -421,3 +423,61 @@ mysql> select * from test_timestamp;
 
 -- 什么也不写 会得到当前的系统的日期和时间
 INSERT test_timestamp VALUES();
+mysql> select * from test_timestamp;
++---------------------+
+| a                   |
++---------------------+
+| 1978-10-23 12:12:12 |
+| 2020-07-24 14:01:15 |
+| 2020-07-24 14:02:26 |
+| 2020-07-24 14:18:07 |
++---------------------+
+4 rows in set (0.00 sec)
+
+
+-- TIMESTAMP 除了这三个与 DATATIME的差别外
+-- TIMESTAMP的日期时间范围要比DATETIME日期时间的范围要小
+-- 且TIMESTAMP 是自动带有时区的 他会根据你系统所在的时区而得到不同的值
+-- 当超过TIMESTAMP类型的取值范围时系统会报错与DATATIME是相同的
+
+-- 测试YEAR
+CREATE TABLE test_year(
+  a YEAR
+);
+
+INSERT test_year(a) VALUES(1901);
+INSERT test_year(a) VALUES('1901');
+-- 都是可以的
+-- 注意:
+INSERT test_year(a) VALUES(0);
+-- 数字0插入的结果是 0000
+mysql> select * from test_year;
++------+
+| a    |
++------+
+| 1901 |
+| 1901 |
+| 2155 |
+| 2000 |
+| 0000 |
++------+
+5 rows in set (0.00 sec)
+
+INSERT test_year(a) VALUES('0');
+-- 字符串形式的0插入的结果是 2000
+mysql> select * from test_year;
++------+
+| a    |
++------+
+| 1901 |
+| 1901 |
+| 2155 |
+| 2000 |
++------+
+4 rows in set (0.00 sec)
+
+
+当插入的年份值为两位时
+两位年份的转换规则 与 DATA类型的两位年份转换规则是一样的
+-- 00~69 2000~2069
+-- 70~99 1970~1999
